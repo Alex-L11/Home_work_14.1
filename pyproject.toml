@@ -16,7 +16,7 @@ lint = [
 ]
 
 [tool.poetry]
-packages = [{include = "home_work_14"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 pytest-cov = "^7.1.0"
