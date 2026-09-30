@@ -1,8 +1,8 @@
-import os
 import json
-
+import os
 from typing import cast
-from src.main import Product, Category
+
+from src.main import Category, Product
 
 
 def read_json(path: str) -> list[dict]:
