@@ -37,6 +37,8 @@ def product_3():
 
 @pytest.fixture
 def category_1(product_1, product_2, product_3):
+    Category.category_count = 0
+    Category.product_count = 0
     return Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных " "функций для удобства жизни",
@@ -131,3 +133,20 @@ def dict_for_test():
                 "price": 31000.0,
                 "quantity": 14,
             })
+
+
+@pytest.fixture
+def product1():
+    prod_1 = Product('Яблоки', 'спелое', 100,20)
+    return prod_1
+
+@pytest.fixture
+def product2():
+    prod_2 = Product('Вишня', 'красная', 50,10)
+    return prod_2
+
+
+@pytest.fixture
+def empty_category():
+    return Category('Пустая категория', 'Нет товаров', [])
+
