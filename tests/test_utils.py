@@ -20,6 +20,7 @@ def test_created_objects_from_json(data_for_category):
     category = result[0]
 
     assert category.name == "Смартфоны"
-    assert category.products[0].name == "Samsung Galaxy C23 Ultra"
-    assert category.products[1].name == "Iphone 15"
-    assert category.products[2].name == "Xiaomi Redmi Note 11"
+    product_list = category._Category__products
+    assert product_list[0].name == "Samsung Galaxy C23 Ultra"
+    assert product_list[1].name == "Iphone 15"
+    assert product_list[2].name == "Xiaomi Redmi Note 11"

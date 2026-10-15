@@ -34,5 +34,9 @@ profile = "black"
 disallow_untyped_defs = true
 warn_return_any = true
 
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
 [tool.flake8]
 max-line-length=119
