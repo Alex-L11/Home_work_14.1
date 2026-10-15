@@ -14,6 +14,23 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return f'{self.name}, {round(self.__price)} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        if not isinstance(other, Product):
+            return NotImplemented
+        return self.price * self.quantity + other.price * other.quantity
+    # Метод, когда объект стоит справа
+    def __radd__(self, other):
+        if other == 0:
+            return self.price * self.quantity
+        return other + self.price * self.quantity
+
+
+
+
+
     @classmethod
     def new_product(cls, dict_products: dict) -> "Product":
         name = dict_products.get('name')
@@ -72,6 +89,9 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(self.__products) if products else 0
 
+    def __str__(self):
+        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+
     def add_product(self, product: Product) -> None:
         self.__products.append(product)
         Category.product_count += 1
@@ -80,5 +100,15 @@ class Category:
     def products(self) -> str:
         output_str = ""
         for prod in self.__products:
-            output_str += f"{prod.name}, {round(prod.price)} руб., Остаток: {prod.quantity} шт.\n"
-        return output_str.rstrip("\n")
+            output_str += f"{str(prod)}\n"
+        return output_str
+
+
+    @property
+    def product_in_list(self):
+        return self.__products
+
+
+
+
+
