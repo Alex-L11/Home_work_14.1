@@ -1,6 +1,6 @@
 import pytest
 
-from src.main import Product
+from src.main import Product, Category
 
 def test_product_init(product_1):
     assert product_1.name == "Samsung Galaxy S23 Ultra"
@@ -17,9 +17,9 @@ def test_category(category_1):
 
 
 def test_products_property(category_1):
-    assert category_1.products == ("Samsung Galaxy S23 Ultra, 180000 руб., Остаток: 5 шт.\n"
-                                   "Iphone 15, 210000 руб., Остаток: 8 шт.\n"
-                                   "Xiaomi Redmi Note 11, 31000 руб., Остаток: 14 шт.")
+    assert category_1.products == ("Samsung Galaxy S23 Ultra, 180000 руб. Остаток: 5 шт.\n"
+                                   "Iphone 15, 210000 руб. Остаток: 8 шт.\n"
+                                   "Xiaomi Redmi Note 11, 31000 руб. Остаток: 14 шт.\n")
 
 def test_add_product(category_1, data):
     initial_count = len(category_1._Category__products)
@@ -74,3 +74,17 @@ def test_new_product_update_quantity(dict_for_test):
     assert result is Product.all_products[0]
     assert result.quantity == 20
     assert len(Product.all_products) == 1
+
+
+def test_product_str():
+    p = Product('Яблоки', 'спелое', 100,20)
+    assert str(p) == 'Яблоки, 100 руб. Остаток: 20 шт.'
+
+
+def test_product_add(product1, product2):
+    assert product1 + product2 == 2500
+
+
+def test_category_str():
+    cat = Category('Фрукты', 'корзина', ['яблоки', 'груши', 'сливы'])
+    assert str(cat) == 'Фрукты, количество продуктов: 3 шт.'
