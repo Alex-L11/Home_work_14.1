@@ -1,5 +1,6 @@
 from src.cat_iterator import CatIterator
 
+
 def test_cat_iterator(category_1):
     iterator = CatIterator(category_1)
     items = list(iterator)

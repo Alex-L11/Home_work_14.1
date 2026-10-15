@@ -1,6 +1,7 @@
 import pytest
 
-from src.main import Product, Category
+from src.main import Category, Product
+
 
 def test_product_init(product_1):
     assert product_1.name == "Samsung Galaxy S23 Ultra"

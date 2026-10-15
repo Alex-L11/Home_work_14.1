@@ -1,7 +1,7 @@
 import json
+from unittest.mock import mock_open, patch
 
-from unittest.mock import patch, mock_open
-from src.utils import read_json, created_objects_from_json
+from src.utils import created_objects_from_json, read_json
 from tests.conftest import data_for_category
 
 
