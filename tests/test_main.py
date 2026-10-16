@@ -87,5 +87,16 @@ def test_product_add(product1, product2):
 
 
 def test_category_str():
-    cat = Category('Фрукты', 'корзина', ['яблоки', 'груши', 'сливы'])
-    assert str(cat) == 'Фрукты, количество продуктов: 3 шт.'
+    product_1 = Product(
+        "Xiaomi Redmi Note 11",
+        "1024GB, Синий",
+        31000.0,
+        14)
+    product_2 = Product(
+        "Iphone 15",
+        "512GB, Gray space",
+        210000.0,
+        8)
+    cat = Category('Электроника', 'Смартфоны', [product_1, product_2])
+
+    assert str(cat) == 'Электроника, количество продуктов: 22 шт.'
