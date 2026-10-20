@@ -18,15 +18,15 @@ class Product:
         return f'{self.name}, {round(self.__price)} руб. Остаток: {self.quantity} шт.'
 
     def __add__(self, other: Product) -> int | float:
-        if not isinstance(other, Product):
+        if not  isinstance(self, Product) and isinstance(other, Product):
             return NotImplemented
         return self.price * self.quantity + other.price * other.quantity
-    # Метод, когда объект стоит справа
 
+    # Метод, когда объект стоит справа
     def __radd__(self, other: int) -> int | float:
-        if other == 0:
-            return self.price * self.quantity
-        return other + self.price * self.quantity
+        if isinstance(other, int):
+            return othert + (self.price * self.quantity)
+        return NotImplemented
 
     @classmethod
     def new_product(cls, dict_products: dict) -> "Product":
