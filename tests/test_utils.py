@@ -1,16 +1,15 @@
 import json
+from unittest.mock import mock_open, patch
 
-from unittest.mock import patch, mock_open
-from src.utils import read_json, created_objects_from_json
-from tests.conftest import data_for_category
+from src.utils import created_objects_from_json, read_json
 
 
-@patch('src.utils.open', new_callable=mock_open)
+@patch("src.utils.open", new_callable=mock_open)
 def test_read_json_file(mocked_open, data):
     json_string = json.dumps(data, ensure_ascii=False)
     mocked_open.return_value.read.return_value = json_string
 
-    result = read_json('path.json')
+    result = read_json("path.json")
 
     assert result == data
 

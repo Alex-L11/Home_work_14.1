@@ -1,6 +1,7 @@
 import pytest
 
-from src.main import Product, Category
+from src.main import Category, Product
+
 
 def test_product_init(product_1):
     assert product_1.name == "Samsung Galaxy S23 Ultra"
@@ -11,15 +12,21 @@ def test_product_init(product_1):
 
 def test_category(category_1):
     assert category_1.name == "Смартфоны"
-    assert category_1.description == "Смартфоны, как средство не только коммуникации, но и получения дополнительных " "функций для удобства жизни"
+    assert (
+        category_1.description == "Смартфоны, как средство не только коммуникации, но и получения дополнительных "
+        "функций для удобства жизни"
+    )
     assert category_1.category_count == 1
     assert category_1.product_count == 3
 
 
 def test_products_property(category_1):
-    assert category_1.products == ('Samsung Galaxy S23 Ultra, 180000 руб. Остаток: 5 шт.\n'
-                                   'Iphone 15, 210000 руб. Остаток: 8 шт.\n'
-                                   'Xiaomi Redmi Note 11, 31000 руб. Остаток: 14 шт.\n')
+    assert category_1.products == (
+        "Samsung Galaxy S23 Ultra, 180000 руб. Остаток: 5 шт.\n"
+        "Iphone 15, 210000 руб. Остаток: 8 шт.\n"
+        "Xiaomi Redmi Note 11, 31000 руб. Остаток: 14 шт.\n"
+    )
+
 
 def test_add_product(category_1, data):
     initial_count = len(category_1._Category__products)
@@ -28,7 +35,8 @@ def test_add_product(category_1, data):
     category_1.add_product(new_product)
 
     assert len(category_1._Category__products) == initial_count + 1
-    assert category_1._Category__products[-1].name == 'Samsung Galaxy S23 Ultra'
+    assert category_1._Category__products[-1].name == "Samsung Galaxy S23 Ultra"
+
 
 def test_new_product(dict_for_test):
     data_1 = dict_for_test[0]
@@ -43,23 +51,16 @@ def test_new_product(dict_for_test):
     assert product_2.quantity == 8
     assert product_3.price == 31000
 
+
 def test_new_product_raises_name():
     with pytest.raises(ValueError, match="Поля 'name' и 'description' должны быть строчками."):
-        Product.new_product({
-            "name": 123,
-            "description": None,
-            "price": 100.0,
-            "quantity": 3
-            })
+        Product.new_product({"name": 123, "description": None, "price": 100.0, "quantity": 3})
+
 
 def test_new_product_raises_price():
     with pytest.raises(ValueError, match="Поля 'price' и 'quantity' должны иметь числовые типы."):
-        Product.new_product({
-            "name": "Test",
-            "description": "test",
-            "price": "100",
-            "quantity": 3.5
-            })
+        Product.new_product({"name": "Test", "description": "test", "price": "100", "quantity": 3.5})
+
 
 def test_new_product_update_quantity(dict_for_test):
     Product.new_product(dict_for_test[0])
@@ -67,7 +68,7 @@ def test_new_product_update_quantity(dict_for_test):
         "name": "Samsung Galaxy C23 Ultra",
         "description": "256GB, Серый цвет, 200MP камера",
         "price": 180000.0,
-        "quantity": 15
+        "quantity": 15,
     }
     result = Product.new_product(update_data)
 
@@ -78,5 +79,5 @@ def test_new_product_update_quantity(dict_for_test):
 
 def test_add_product_error(list_category):
     Category.product_count = 0
-    list_category.add_product('No product')
+    list_category.add_product("No product")
     assert Category.product_count == 0

@@ -1,4 +1,5 @@
-from src.main import Product, Category
+from src.main import Product
+
 
 class Smartphone(Product):
     """ Класс для категорий товаров 'Смартфон' """
@@ -10,10 +11,11 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
-    def __add__(self, other):
+    def __add__(self, other: Product) -> int:
         if type(other) is Smartphone:
             return self.quantity + other.quantity
         raise TypeError
+
 
 class LawnGrass(Product):
     """ Класс для категорий товара 'Трава газонная' """
@@ -24,7 +26,7 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
-    def __add__(self, other):
+    def __add__(self, other: Product) -> int:
         if type(other) is LawnGrass:
             return self.quantity + other.quantity
         raise TypeError

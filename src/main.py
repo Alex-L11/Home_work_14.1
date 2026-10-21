@@ -18,7 +18,7 @@ class Product:
         return f'{self.name}, {round(self.__price)} руб. Остаток: {self.quantity} шт.'
 
     def __add__(self, other: Product) -> int | float:
-        if not  isinstance(self, Product) and isinstance(other, Product):
+        if not isinstance(other, Product):
             return NotImplemented
         return self.price * self.quantity + other.price * other.quantity
 
@@ -94,9 +94,8 @@ class Category:
 
     def add_product(self, product: Product) -> None:
         if isinstance(product, Product):
-                self.__products.append(product)
-                Category.product_count += 1
-
+            self.__products.append(product)
+            Category.product_count += 1
 
     @property
     def products(self) -> str:

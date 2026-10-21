@@ -1,5 +1,6 @@
 import pytest
 
+
 def test_smartphone_init(category_smartphone_1):
     assert category_smartphone_1.name == "Xiaomi Redmi Note 11"
     assert category_smartphone_1.description == "1024GB, Синий"
@@ -14,7 +15,7 @@ def test_smartphone_add(category_smartphone_1, category_smartphone_2):
 
 def test_smartphone_add_error(category_smartphone_1, category_lawngrass_1):
     with pytest.raises(TypeError):
-        result = category_smartphone_1 + category_lawngrass_1
+        _ = category_smartphone_1 + category_lawngrass_1
 
 
 def test_lawngrass_init(category_lawngrass_1):
@@ -33,5 +34,4 @@ def test_lawngrass_add(category_lawngrass_2, category_lawngrass_1):
 
 def test_lawngrass_add_error(category_lawngrass_1, category_smartphone_1):
     with pytest.raises(TypeError):
-        result = category_lawngrass_1 + category_smartphone_1
-
+        _ = category_lawngrass_1 + category_smartphone_1
