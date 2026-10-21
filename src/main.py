@@ -18,14 +18,14 @@ class Product:
         return f'{self.name}, {round(self.__price)} руб. Остаток: {self.quantity} шт.'
 
     def __add__(self, other: Product) -> int | float:
-        if not  isinstance(self, Product) and isinstance(other, Product):
+        if not isinstance(other, Product):
             return NotImplemented
         return self.price * self.quantity + other.price * other.quantity
 
     # Метод, когда объект стоит справа
     def __radd__(self, other: int) -> int | float:
         if isinstance(other, int):
-            return othert + (self.price * self.quantity)
+            return other + (self.price * self.quantity)
         return NotImplemented
 
     @classmethod
@@ -93,8 +93,9 @@ class Category:
         return f'{self.name}, количество продуктов: {prod_quantity} шт.'
 
     def add_product(self, product: Product) -> None:
-        self.__products.append(product)
-        Category.product_count += 1
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_count += 1
 
     @property
     def products(self) -> str:
