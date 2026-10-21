@@ -1,8 +1,9 @@
-from src.main import Product
+from src.main import Product, Category
 
 class Smartphone(Product):
     """ Класс для категорий товаров 'Смартфон' """
-    def __init__(self, name: str, description: str, price: float, quantity: int, efficiency: int, model: str, memory: int, color: str):
+    def __init__(self, name: str, description: str, price: float, quantity: int, efficiency: float, model: str,
+                 memory: int, color: str):
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
@@ -16,7 +17,8 @@ class Smartphone(Product):
 
 class LawnGrass(Product):
     """ Класс для категорий товара 'Трава газонная' """
-    def __init__(self, name: str, description: str, price: float, quantity: int, country: str, germination_period: int, color: str):
+    def __init__(self, name: str, description: str, price: float, quantity: int, country: str, germination_period: str,
+                 color: str):
         super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period
