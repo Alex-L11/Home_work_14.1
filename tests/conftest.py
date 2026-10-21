@@ -1,6 +1,7 @@
 import pytest
 
 from src.main import Product, Category
+from src.category_product import Smartphone, LawnGrass
 
 
 @pytest.fixture(autouse=True)
@@ -25,6 +26,8 @@ def product_2():
         price=210000.0,
         quantity=8
     )
+
+
 @pytest.fixture
 def product_3():
     return Product(
@@ -131,3 +134,66 @@ def dict_for_test():
                 "price": 31000.0,
                 "quantity": 14,
             })
+
+
+
+@pytest.fixture
+def category_smartphone_1():
+    return Smartphone(
+        name="Xiaomi Redmi Note 11",
+        description="1024GB, Синий",
+        price=31000.0,
+        quantity=14,
+        efficiency=98.2,
+        model="15",
+        memory=512,
+        color="Gray space"
+    )
+
+@pytest.fixture
+def category_smartphone_2():
+    return Smartphone(
+        name="Samsung Galaxy S23 Ultra",
+        description="1024GB, Синий",
+        price=31000.0,
+        quantity=14,
+        efficiency=90.3,
+        model="Note 11",
+        memory=1024,
+        color="Синий"
+    )
+
+
+@pytest.fixture
+def category_lawngrass_1():
+    return LawnGrass("Газонная трава",
+                     "Элитная трава для газона",
+                     500.0,
+                     20,
+                     "Россия",
+                     "7 дней",
+                     "Зеленый")
+
+@pytest.fixture
+def category_lawngrass_2():
+    return LawnGrass("Газонная трава 2",
+                     "Выносливая трава",
+                     450.0,
+                     15,
+                     "США",
+                     "5 дней",
+                     "Темно-зеленый")
+
+@pytest.fixture
+def product_lawngrass_1():
+    return LawnGrass("Газонная трава 2",
+                     "Выносливая трава",
+                     430.0,
+                     10,
+                     "США",
+                     "5 дней",
+                     "Темно-зеленый")
+
+@pytest.fixture
+def list_category():
+    return Category('Рыба', 'морская', [])
