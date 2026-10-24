@@ -1,7 +1,10 @@
 from typing import Optional
 
+from src.base_product import BaseEntity, BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(BaseProduct, PrintMixin):
     """Класс для продуктов"""
     name: str
     description: str
@@ -13,6 +16,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self) -> str:
         return f'{self.name}, {round(self.__price)} руб. Остаток: {self.quantity} шт.'
@@ -71,16 +75,13 @@ class Product:
         self.__price = value
 
 
-class Category:
+class Category(BaseEntity):
     """Класс для категорий товаров"""
-    name: str
-    description: str
     category_count = 0
     product_count = 0
 
     def __init__(self, name: str, description: str, products: Optional[list[Product]] = None):
-        self.name = name
-        self.description = description
+        super().__init__(name, description)
         self.__products = products if products else []
 
         Category.category_count += 1
@@ -96,6 +97,10 @@ class Category:
         if isinstance(product, Product):
             self.__products.append(product)
             Category.product_count += 1
+
+    def info(self) -> str:
+        return f'{self.name},  {self.description}, количество категорий: {self.category_count}, \
+                количетсво товаров в каждой категрии: {self.product_count}'
 
     @property
     def products(self) -> str:
