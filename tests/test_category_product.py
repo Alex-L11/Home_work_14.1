@@ -1,5 +1,7 @@
 import pytest
 
+from src.category_product import Order
+
 
 def test_smartphone_init(category_smartphone_1):
     assert category_smartphone_1.name == "Xiaomi Redmi Note 11"
@@ -35,3 +37,10 @@ def test_lawngrass_add(category_lawngrass_2, category_lawngrass_1):
 def test_lawngrass_add_error(category_lawngrass_1, category_smartphone_1):
     with pytest.raises(TypeError):
         _ = category_lawngrass_1 + category_smartphone_1
+
+
+def test_order_success(product_1):
+    ord_1 = Order('Заказ №1', 'покупка телефона', product=product_1, order_quantity=2)
+    assert ord_1.order_quantity == 2
+    assert ord_1.total_price == product_1.price * 2
+    assert ord_1.info() == 'Заказ №1, покупка телефона, сумма заказа: 360000.0'
