@@ -80,8 +80,6 @@ class Product(BaseProduct, PrintMixin):
 
 class Category(BaseEntity):
     """Класс для категорий товаров"""
-    name: str
-    description: str
     category_count = 0
     product_count = 0
 

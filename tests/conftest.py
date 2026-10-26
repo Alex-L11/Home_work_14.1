@@ -34,12 +34,23 @@ def product_4():
 
 @pytest.fixture
 def category_1(product_1, product_2, product_3):
+    Category.category_count = 0
+    Category.product_count = 0
+    return Category(
+        "Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для " "удобства жизни",
+        [product_1, product_2, product_3],
+    )
+
+
+@pytest.fixture
+def category_2():
     return Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных "
         "функций для "
         "удобства жизни",
-        [product_1, product_2, product_3],
+        [],
     )
 
 
