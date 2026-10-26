@@ -28,6 +28,10 @@ def product_3():
 
 
 @pytest.fixture
+def product_4():
+    return Product(name="Samsung Note 11", description="1024GB, Синий", price=31000.0, quantity=5)
+
+@pytest.fixture
 def category_1(product_1, product_2, product_3):
     return Category(
         "Смартфоны",
