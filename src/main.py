@@ -2,6 +2,7 @@ from typing import Optional
 
 from src.base_product import BaseProduct, BaseEntity
 from src.print_mixin import PrintMixin
+from src.exception import ZeroQuantityProduct
 
 
 class Product(BaseProduct, PrintMixin):
@@ -99,8 +100,20 @@ class Category(BaseEntity):
 
     def add_product(self, product: Product) -> None:
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
+            try:
+                if product.quantity == 0:
+                    raise ZeroQuantityProduct('Добавляется товар с нулевым количеством')
+            except ZeroQuantityProduct as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                Category.product_count += 1
+                print('Товар успешно добавлен')
+            finally:
+                print('Обработка добавления товара завершена')
+        else:
+            raise TypeError
+
 
     def info(self) -> str:
         return (f'{self.name}, {self.description}, количество категорий: {self.category_count}, \
