@@ -1,8 +1,8 @@
 from typing import Optional
 
-from src.base_product import BaseProduct, BaseEntity
-from src.print_mixin import PrintMixin
+from src.base_product import BaseEntity, BaseProduct
 from src.exception import ZeroQuantityProduct
+from src.print_mixin import PrintMixin
 
 
 class Product(BaseProduct, PrintMixin):
@@ -114,12 +114,11 @@ class Category(BaseEntity):
         else:
             raise TypeError
 
-
     def info(self) -> str:
         return (f'{self.name}, {self.description}, количество категорий: {self.category_count}, \
                 количество товаров в каждой категории: {self.product_count}')
 
-    def middle_price(self):
+    def middle_price(self) -> float:
         try:
             return round(sum(products.price for products in self.__products) / len(self.__products), 2)
         except ZeroDivisionError:
