@@ -79,7 +79,9 @@ def test_new_product_update_quantity(dict_for_test):
 
 def test_add_product_error(list_category):
     Category.product_count = 0
-    list_category.add_product("No product")
+
+    with pytest.raises(TypeError):
+        list_category.add_product("No product")
     assert Category.product_count == 0
 
 
@@ -91,3 +93,17 @@ def test_middle_price(list_category, category_1):
 def test_product_quantity_error():
     with pytest.raises(ValueError, match='Товар с нулевым количеством не может быть добавлен'):
         Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 0)
+
+
+def test_exception_print(capsys, category_1, product_4):
+    init_len = len(category_1.product_in_list)
+    init_count = Category.product_count
+
+    category_1.add_product(product_4)
+    message = capsys.readouterr()
+
+    assert 'Товар успешно добавлен' in message.out.strip()
+    assert 'Обработка добавления товара завершена' in message.out.strip()
+    assert len(category_1.product_in_list) == init_len + 1
+    assert product_4 in category_1.product_in_list
+    assert Category.product_count == init_count + 1
