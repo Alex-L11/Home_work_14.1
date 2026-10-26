@@ -16,8 +16,8 @@ def test_category(category_1):
         category_1.description == "Смартфоны, как средство не только коммуникации, но и получения дополнительных "
         "функций для удобства жизни"
     )
-    assert category_1.category_count == 1
-    assert category_1.product_count == 3
+    assert sum(p.quantity for p in category_1.product_in_list) == 27
+    assert len(category_1.product_in_list) == 3
 
 
 def test_products_property(category_1):
@@ -83,9 +83,9 @@ def test_add_product_error(list_category):
     assert Category.product_count == 0
 
 
-def test_middle_price(empty_category, category_1):
+def test_middle_price(list_category, category_1):
     assert category_1.middle_price() == 140333.33
-    assert empty_category.middle_price() == 0
+    assert list_category.middle_price() == 0
 
 
 def test_product_quantity_error():

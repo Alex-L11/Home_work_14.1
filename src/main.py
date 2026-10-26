@@ -1,7 +1,10 @@
 from typing import Optional
 
+from src.base_product import BaseProduct, BaseEntity
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(BaseProduct, PrintMixin):
     """Класс для продуктов"""
     name: str
     description: str
@@ -13,8 +16,9 @@ class Product:
         self.description = description
         self.__price = price
         if quantity == 0:
-            raise ValueError('Товар с нулевым количетсвом не может быть добавлен')
+            raise ValueError('Товар с нулевым количеством не может быть добавлен')
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self) -> str:
         return f'{self.name}, {round(self.__price)} руб. Остаток: {self.quantity} шт.'
@@ -73,7 +77,7 @@ class Product:
         self.__price = value
 
 
-class Category:
+class Category(BaseEntity):
     """Класс для категорий товаров"""
     name: str
     description: str
@@ -81,8 +85,7 @@ class Category:
     product_count = 0
 
     def __init__(self, name: str, description: str, products: Optional[list[Product]] = None):
-        self.name = name
-        self.description = description
+        super().__init__(name, description)
         self.__products = products if products else []
 
         Category.category_count += 1
@@ -99,12 +102,15 @@ class Category:
             self.__products.append(product)
             Category.product_count += 1
 
+    def info(self) -> str:
+        return (f'{self.name}, {self.description}, количество категорий: {self.category_count}, \
+                количество товаров в каждой категории: {self.product_count}')
+
     def middle_price(self):
         try:
             return round(sum(products.price for products in self.__products) / len(self.__products), 2)
         except ZeroDivisionError:
             return 0
-
 
     @property
     def products(self) -> str:
@@ -116,24 +122,3 @@ class Category:
     @property
     def product_in_list(self) -> list[Product]:
         return self.__products
-
-if __name__ == '__main__':
-    try:
-        product_invalid = Product("Бракованный товар", "Неверное количество", 1000.0, 0)
-    except ValueError as e:
-        print(
-            "Возникла ошибка ValueError прерывающая работу программы при попытке добавить продукт с нулевым количеством")
-    else:
-        print("Не возникла ошибка ValueError при попытке добавить продукт с нулевым количеством")
-
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-
-    category1 = Category("Смартфоны", "Категория смартфонов", [product1, product2, product3])
-    print('-' * 8)
-    print(category1.middle_price())
-
-    category_empty = Category("Пустая категория", "Категория без продуктов", [])
-    print('-' * 8)
-    print(category_empty.middle_price())
