@@ -81,3 +81,13 @@ def test_add_product_error(list_category):
     Category.product_count = 0
     list_category.add_product("No product")
     assert Category.product_count == 0
+
+
+def test_middle_price(empty_category, category_1):
+    assert category_1.middle_price() == 140333.33
+    assert empty_category.middle_price() == 0
+
+
+def test_product_quantity_error():
+    with pytest.raises(ValueError, match='Товар с нулевым количеством не может быть добавлен'):
+        Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 0)
